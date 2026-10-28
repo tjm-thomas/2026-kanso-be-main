@@ -1,0 +1,23 @@
+services:
+  be-main:
+    build:
+      context: .
+      args:
+        VERSION: ${KANSO_VERSION:-dev}
+    image: kanso-be-main:dev
+    container_name: kanso-be-main
+    ports:
+      - "${KANSO_PORT:-8080}:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/api/status"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+    networks: [kanso]
+
+# Shared with the fe-dashboard compose project, so the dashboard can reach this app as kanso-be-main
+networks:
+  kanso:
+    name: kanso
