@@ -30,6 +30,16 @@ class MarketControllerTest {
                 .andExpect(jsonPath("$.version").value("dev"));
     }
 
+    @Test
+    void companiesListsAllFour() throws Exception {
+        mvc.perform(get("/api/companies"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(4)))
+                .andExpect(jsonPath("$[0].slug").value("shizuka"))
+                .andExpect(jsonPath("$[0].name").value("Shizuka Ceramics"))
+                .andExpect(jsonPath("$[0].symbol").value("SZK"));
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"shizuka", "mokume", "kinari", "sumi"})
     void eachCompanyReturnsSixtyPositivePrices(String company) throws Exception {
