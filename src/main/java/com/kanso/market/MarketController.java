@@ -44,6 +44,12 @@ public class MarketController {
                 .toList();
     }
 
+    /** How many companies the API tracks. */
+    @GetMapping("/companies/count")
+    public Map<String, Integer> companyCount() {
+        return Map.of("count", Company.values().length);
+    }
+
     /**
      * A series of prices for one company, new on every call. The frontend fetches it once and
      * cycles through it, so it doesn't need to call every second.
