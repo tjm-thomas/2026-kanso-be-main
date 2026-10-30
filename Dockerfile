@@ -18,3 +18,5 @@ WORKDIR /app
 COPY --from=build /src/target/app.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+
+# Deploy check after the PLATFORM_DEPLOY_TOKEN rotation, 2026-10-30.
